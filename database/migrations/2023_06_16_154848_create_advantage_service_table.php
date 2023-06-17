@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('advantage_service', function (Blueprint $table) {
             $table->id();
-            $table->integer("service_id")->nullable();
+            // $table->integer("service_id")->nthullable();
+            $table->foreignId("service_id")->nullable()->index("fk_advantage_service_to_service");
             $table->string("advantage");
             $table->softDeletes();
             $table->timestamps();
