@@ -29,4 +29,14 @@ class DetailUser extends Model
         "created_at",
         "deleted_at",
     ];
+
+    // one to one
+    public function user(){
+        return $this->belongsTo("App/Models/User", "users_id", "id");
+    }
+
+    // one to many
+    public function experience_user(){
+        return $this->hasMany("App\Models\ExperienceUser", "detail_user_id", "id");
+    }
 }
