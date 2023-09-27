@@ -12,7 +12,7 @@ class RequestController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.dashboard.request.index');
     }
 
     /**
@@ -36,7 +36,7 @@ class RequestController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('pages.dashboard.request.detail');
     }
 
     /**
@@ -44,7 +44,7 @@ class RequestController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // return view('pages.dashboard.service.detail');
     }
 
     /**
@@ -59,6 +59,12 @@ class RequestController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
+    {
+        //
+    }
+
+    // custom
+    public function approve($id)
     {
         //
     }
