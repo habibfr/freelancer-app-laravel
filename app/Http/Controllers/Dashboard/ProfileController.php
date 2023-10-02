@@ -14,7 +14,7 @@ use Iluminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response;
 
-use Illuminate\Http\Testing\File;
+// use Illuminate\Http\Testing\File;
 // use Illuminate\Http\File;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,18 +85,24 @@ class ProfileController extends Controller
         $data_profile = $request_profile->all();
         $data_detail_user = $request_detail_user->all();
 
+        // dd($data_detail_user['photo']);
+
 
         // get foto
         $get_photo = DetailUser::where('users_id', Auth::user()->id)->first();
 
         // delete old file from storage
-        if (isset($data_detail_user['photo'])) {
-            $data = 'storage' . $get_photo['photo'];
 
-            if (File::exists($data)) {
-                File::delete($data);
+
+        if (isset($data_detail_user['photo'])) {
+            $data = 'storage/' . $get_photo['photo'];
+            // dd($data);
+
+            if (Storage::exists($data)) {
+                Storage::delete($data);
             } else {
-                File::delete('storage/app/public' . $get_photo['photo']);
+                // Storage::delete($data);
+                Storage::delete('storage/app/public' . $get_photo['photo']);
             }
         }
 
@@ -165,16 +171,14 @@ class ProfileController extends Controller
         $data->save();
 
         // delete
-        $data = 'storage/'. $path_photo;
-        if(File::exist($data)){
-            File::delete($data);
-        }else{
-            File::delete('storage/app/public/'. $path_photo);
+        $data = 'storage/' . $path_photo;
+        if (Storage::exists($data)) {
+            Storage::delete($data);
+        } else {
+            Storage::delete('storage/app/public/' . $path_photo);
         }
 
         Alert::toast()->success('delete has been success');
         return back();
-
-
     }
 }

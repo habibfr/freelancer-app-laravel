@@ -6,20 +6,48 @@
         </div>
         <div class="flex items-center pt-8 pl-5 space-x-2 border-t border-gray-100">
             <!--Author's profile photo-->
-            <img class="object-cover object-center mr-1 rounded-full w-14 h-14"
-                src="https://randomuser.me/api/portraits/men/1.jpg" alt="random user" />
+
+            @if (Auth::user()->detail_user->photo == null)
+                <img src="{{ url('https://randomuser.me/api/portraits/men/2.jpg') }}" alt="photo profile"
+                    class="  w-16 h-16 rounded-full">
+            @else
+                <img class="object-cover object-center mr-1 rounded-full w-14 h-14"
+                    src="{{ asset('storage/' . Auth::user()->detail_user->photo) }}"
+                    alt="{{ Auth::user()->name . ' photo' }}" />
+            @endif
+
+
             <div>
+                {{-- @dd(Auth::user()) --}}
                 <!--Author name-->
                 <p class="font-semibold text-gray-900 text-md">{{ Auth::user()->name }}</p>
                 <p class="text-sm font-light text-serv-text">
-                    Website Developer
+                    {{ Auth::user()->detail_user->role ?? '' }}
                 </p>
             </div>
         </div>
+
+
         <ul class="mt-6">
+
+
+
             <li class="relative px-6 py-3">
-                <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
-                    aria-hidden="true"></span>
+
+
+                @if (request()->is('member/dashboard') ||
+                        request()->is('member/dashboard/*') ||
+                        request()->is('member/*/dashboard') ||
+                        request()->is('member/*/dashboard/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
+
+
+
+
+
+
                 <a class="inline-flex items-center w-full text-sm font-medium text-gray-800 transition-colors duration-150 hover:text-gray-800 "
                     href="{{ route('member.dashboard.index') }}">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -34,6 +62,16 @@
         </ul>
         <ul>
             <li class="relative px-6 py-3">
+
+                @if (request()->is('member/service') ||
+                        request()->is('member/service/*') ||
+                        request()->is('member/*/service') ||
+                        request()->is('member/*/service/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
+
+
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.service.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -62,6 +100,15 @@
             </li>
 
             <li class="relative px-6 py-3">
+
+                @if (request()->is('member/request') ||
+                        request()->is('member/request/*') ||
+                        request()->is('member/*/request') ||
+                        request()->is('member/*/request/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
+
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.request.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -87,6 +134,15 @@
             </li>
 
             <li class="relative px-6 py-3">
+
+                @if (request()->is('member/order') ||
+                        request()->is('member/order/*') ||
+                        request()->is('member/*/order') ||
+                        request()->is('member/*/order/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
+
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.order.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -115,6 +171,15 @@
             </li>
 
             <li class="relative px-6 py-3">
+
+                @if (request()->is('member/profile') ||
+                        request()->is('member/profile/*') ||
+                        request()->is('member/*/profile') ||
+                        request()->is('member/*/profile/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
+
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.profile.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
