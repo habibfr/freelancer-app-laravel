@@ -92,18 +92,25 @@ class ProfileController extends Controller
         $get_photo = DetailUser::where('users_id', Auth::user()->id)->first();
 
         // delete old file from storage
-
-
         if (isset($data_detail_user['photo'])) {
-            $data = 'storage/' . $get_photo['photo'];
+            $data = $get_photo['photo'];
             // dd($data);
 
-            if (Storage::exists($data)) {
-                Storage::delete($data);
-            } else {
-                // Storage::delete($data);
-                Storage::delete('storage/app/public' . $get_photo['photo']);
+            // delete
+            if ($data != NULL) {
+                if (Storage::disk('public')->exists($data)) {
+                    // Storage::delete($data);
+                    Storage::disk('public')->delete($data);
+                    Alert::toast()->success('delete has been success');
+                }
             }
+
+            // if (Storage::exists($data)) {
+            //     Storage::delete($data);
+            // } else {
+            //     // Storage::delete($data);
+            //     Storage::delete('storage/app/public' . $get_photo['photo']);
+            // }
         }
 
 
@@ -165,20 +172,30 @@ class ProfileController extends Controller
         $get_user_photo = DetailUser::where('users_id', Auth::user()->id)->first();
         $path_photo = $get_user_photo['photo'];
 
+        // dd($path_photo);
+
 
         $data = DetailUser::find($get_user_photo['id']);
         $data->photo = NULL;
         $data->save();
 
         // delete
-        $data = 'storage/' . $path_photo;
-        if (Storage::exists($data)) {
-            Storage::delete($data);
+        if ($path_photo != NULL) {
+            if (Storage::disk('public')->exists($path_photo)) {
+                // Storage::delete($data);
+                Storage::disk('public')->delete($path_photo);
+                Alert::toast()->success('delete has been success');
+            }
         } else {
-            Storage::delete('storage/app/public/' . $path_photo);
+            Alert::toast()->error('file empty, delete failed');
         }
 
-        Alert::toast()->success('delete has been success');
+
+        // else {
+        //     Storage::disk('public')->delete($path_photo);
+        //     Storage::delete('storage/app/public/' . $path_photo);
+        // }
+
         return back();
     }
 }
