@@ -64,22 +64,22 @@ class ServiceController extends Controller
 
         $data['users_id'] = Auth::user()->id;
 
-        $service = Service::creat($data);
+        $service = Service::create($data);
 
         // add to advantage
 
         foreach ($data['advantage-service'] as $key => $value) {
             $advantage_service = new AdvantageService;
             $advantage_service->service_id = $service->id;
-            $advantage_service->advantage_id = $value;
+            $advantage_service->advantage = $value;
             $advantage_service->save();
         }
 
         // add advantage user
         foreach ($data['advantage-user'] as $key => $value) {
-            $advantage_user = new AdvantageService;
+            $advantage_user = new AdvantageUser;
             $advantage_user->service_id = $service->id;
-            $advantage_user->advantage_id = $value;
+            $advantage_user->advantage = $value;
             $advantage_user->save();
         }
 
@@ -100,14 +100,19 @@ class ServiceController extends Controller
 
         // add to tagline
 
-        foreach ($data['tagline'] as $key => $value) {
-            $tagline = new Tagline;
-            $tagline->service_id = $service['id'];
-            $tagline->tagline = $value;
-            $tagline->save();
+        if (isset($data['tagline'])) {
+            foreach ($data['tagline'] as $key => $value) {
+                $tagline = new Tagline;
+                $tagline->service_id = $service['id'];
+                $tagline->tagline = $value;
+                $tagline->save();
+            }
         }
 
+
+
         Alert::toast()->success('Save has been success');
+        return redirect("member/service");
     }
 
     /**
