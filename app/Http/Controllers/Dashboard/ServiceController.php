@@ -145,6 +145,7 @@ class ServiceController extends Controller
 
         $data = $request->all();
         $service->update($data);
+
         // dd($data);
 
 
@@ -158,8 +159,8 @@ class ServiceController extends Controller
         }
 
         // update to advantage service
-        if (isset($data['advantage-services'])) {
-            foreach ($data['advantage-services'] as $key => $value) {
+        if (isset($data['advantage_service'])) {
+            foreach ($data['advantage_service'] as $key => $value) {
                 $advantage_service = new AdvantageService;
                 $advantage_service->service_id = $service['id'];
                 $advantage_service->advantage = $value;
@@ -177,8 +178,8 @@ class ServiceController extends Controller
         }
 
         // update to advantage user
-        if (isset($data['advantage-users'])) {
-            foreach ($data['advantage-users'] as $key => $value) {
+        if (isset($data['advantage_user'])) {
+            foreach ($data['advantage_user'] as $key => $value) {
                 $advantage_user = new AdvantageUser;
                 $advantage_user->service_id = $service['id'];
                 $advantage_user->advantage = $value;
@@ -199,11 +200,11 @@ class ServiceController extends Controller
         }
 
         // update to advantage user
-        if (isset($data['taglines'])) {
-            foreach ($data['taglines'] as $key => $value) {
+        if (isset($data['tagline'])) {
+            foreach ($data['tagline'] as $key => $value) {
                 $tagline = new Tagline;
                 $tagline->service_id = $service['id'];
-                $tagline->advantage = $value;
+                $tagline->tagline = $value;
                 $tagline->save();
             }
         }
@@ -247,7 +248,7 @@ class ServiceController extends Controller
                 );
 
                 $thumbnail_service = new ThumbnailService;
-                $thumbnail_service->service_id['id'];
+                $thumbnail_service->service_id = $service['id'];
                 $thumbnail_service->thumbnail = $path;
                 $thumbnail_service->save();
             }
@@ -255,7 +256,7 @@ class ServiceController extends Controller
 
         Alert::toast()->success('Update has been success');
         // return back()
-        // return redirect()->route('member.service.index');
+        return redirect()->route('member.service.index');
     }
 
     /**
