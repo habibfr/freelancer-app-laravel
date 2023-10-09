@@ -49,215 +49,221 @@
 
                             {{-- @dd($service) --}}
 
-                            <div class="px-4 py-5 sm:p-6">
-                                <div class="grid grid-cols-6 gap-6">
-                                    <div class="col-span-6">
-                                        <label for="title" class="block mb-3 font-medium text-gray-700 text-md">Judul
-                                            Service</label>
-                                        <input placeholder="Service apa yang ingin kamu tawarkan?" type="text"
-                                            name="title" id="title" autocomplete="title"
-                                            class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                            value="{{ $service['title'] ?? '' }}" required>
-
-                                        @if ($errors->has('title'))
-                                            <p class="text-red-500 mb-3 text-sm">{{ $errors->first('title') }}
-                                            </p>
-                                        @endif
-                                    </div>
-                                    <div class="col-span-6">
-                                        <label for="description"
-                                            class="block mb-3 font-medium text-gray-700 text-md">Deskripsi
-                                            Service</label>
-                                        <input placeholder="Jelaskan Service apa yang kamu tawarkan?" type="text"
-                                            name="description" id="description" autocomplete="description"
-                                            class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                            value="{{ $service['description'] ?? '' }}" required>
-
-                                        @if ($errors->has('description'))
-                                            <p class="text-red-500 mb-3 text-sm">{{ $errors->first('description') }}
-                                            </p>
-                                        @endif
-                                    </div>
-
-                                    <div class="col-span-6">
-                                        <label for="advantage-services"
-                                            class="block mb-2 font-medium text-gray-700 text-md">Keunggulan Service
-                                            kamu</label>
-                                        <p class="block mb-3 text-sm text-gray-700">
-                                            Hal apa aja yang didapakan dari service kamu?
-                                        </p>
-
-                                        {{-- @dd($advantage_service) --}}
-                                        @forelse ($advantage_service as $advantage_item)
-                                            {{-- @dd($advantage_item) --}}
-                                            <input placeholder="Keunggulan Service" type="text"
-                                                name="{{ 'advantage-services[' . $advantage_item['id'] . ']' }}"
-                                                id="advantage-services" autocomplete="advantage-services"
+                            <div class="">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <div class="grid grid-cols-6 gap-6">
+                                        <div class="col-span-6">
+                                            <label for="title" class="block mb-3 font-medium text-gray-700 text-md">Judul
+                                                Service</label>
+                                            <input placeholder="Service apa yang ingin kamu tawarkan?" type="text"
+                                                name="title" id="title" autocomplete="title"
                                                 class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                                value="{{ $advantage_item['advantage'] ?? '' }}" required>
+                                                value="{{ $service['title'] ?? '' }}" required>
 
-                                        @empty
-                                            {{-- empty --}}
-                                        @endforelse
-                                        <div id="newServicesRow"></div>
+                                            @if ($errors->has('title'))
+                                                <p class="text-red-500 mb-3 text-sm">{{ $errors->first('title') }}
+                                                </p>
+                                            @endif
+                                        </div>
+                                        <div class="col-span-6">
+                                            <label for="description"
+                                                class="block mb-3 font-medium text-gray-700 text-md">Deskripsi
+                                                Service</label>
+                                            <input placeholder="Jelaskan Service apa yang kamu tawarkan?" type="text"
+                                                name="description" id="description" autocomplete="description"
+                                                class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                                                value="{{ $service['description'] ?? '' }}" required>
 
-                                        <button type="button"
-                                            class="inline-flex justify-center px-3 py-2 mt-3 text-xs font-medium text-gray-700 bg-gray-100 border border-transparent rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                                            id="addServicesRow">
-                                            Tambahkan Keunggulan +
-                                        </button>
-                                    </div>
+                                            @if ($errors->has('description'))
+                                                <p class="text-red-500 mb-3 text-sm">{{ $errors->first('description') }}
+                                                </p>
+                                            @endif
+                                        </div>
 
-                                    <div class="col-span-6 -mb-6">
-                                        <label for="estimation & revision"
-                                            class="block mb-3 font-medium text-gray-700 text-md">Estimasi Service &
-                                            Jumlah Revisi</label>
-                                    </div>
+                                        <div class="col-span-6">
+                                            <label for="advantage-services"
+                                                class="block mb-2 font-medium text-gray-700 text-md">Keunggulan Service
+                                                kamu</label>
+                                            <p class="block mb-3 text-sm text-gray-700">
+                                                Hal apa aja yang didapakan dari service kamu?
+                                            </p>
 
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <select id="delivery_time" name="delivery_time" autocomplete="delivery_time"
-                                            class="block w-full px-3 py-3 pr-10 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            required>
-                                            <option>Butuh Berapa hari service kamu selesai?</option>
-                                            <option value="2" {{ $service['delivery_time'] == '2' ? 'selected' : '' }}>
-                                                2
-                                                Hari</option>
-                                            <option value="4" {{ $service['delivery_time'] == '4' ? 'selected' : '' }}>
-                                                4
-                                                Hari</option>
-                                            <option value="8"
-                                                {{ $service['delivery_time'] == '8' ? 'selected' : '' }}>
-                                                8
-                                                Hari</option>
-                                            <option value="16"
-                                                {{ $service['delivery_time'] == '16' ? 'selected' : '' }}>
-                                                16 Hari</option>
-                                            <option value="32"
-                                                {{ $service['delivery_time'] == '32' ? 'selected' : '' }}>
-                                                32 Hari</option>
-                                        </select>
-                                    </div>
+                                            {{-- @dd($advantage_service) --}}
+                                            @forelse ($advantage_service as $advantage_item)
+                                                {{-- @dd($advantage_item) --}}
+                                                <input placeholder="Keunggulan Service" type="text"
+                                                    name="{{ 'advantage-services[' . $advantage_item['id'] . ']' }}"
+                                                    id="advantage-services" autocomplete="advantage-services"
+                                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                                                    value="{{ $advantage_item['advantage'] ?? '' }}" required>
 
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <select id="revision_limit" name="revision_limit" autocomplete="revision_limit"
-                                            class="block w-full px-3 py-3 pr-10 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            required>
-                                            <option>Maksimal Revisi service kamu</option>
-                                            <option value="2"
-                                                {{ $service['revision_limit'] == '3' ? 'selected' : '' }}> 3
-                                                Hari</option>
-                                            <option value="4"
-                                                {{ $service['revision_limit'] == '5' ? 'selected' : '' }}> 5
-                                                Hari</option>
-                                            <option value="8"
-                                                {{ $service['revision_limit'] == '7' ? 'selected' : '' }}>
-                                                7 Hari</option>
-                                            <option value="16"
-                                                {{ $service['revision_limit'] == '10' ? 'selected' : '' }}>
-                                                10 Hari</option>
-                                            <option value="32"
-                                                {{ $service['revision_limit'] == '12' ? 'selected' : '' }}>
-                                                12 Hari</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-span-6">
-                                        <label for="price" class="block mb-3 font-medium text-gray-700 text-md">Harga
-                                            Service
-                                            Kamu</label>
-                                        <input placeholder="Total Harga Service Kamu" type="number" name="price"
-                                            id="price" autocomplete="price"
-                                            class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                            value="{{ $service['price'] ?? '' }}" required>
-                                    </div>
-
-                                    <div class="col-span-6">
-                                        <label for="thumbnail"
-                                            class="block mb-3 font-medium text-gray-700 text-md">Thumbnail Service
-                                            Feeds</label>
-
-                                        <div class="grid grid-cols lg:grid-cols-3 md:grid-cols-2 gap-4">
-                                            @forelse ($thumbnail_service as $thumbnail_item)
-                                                <div class="mb-2">
-                                                    <img src="{{ url(Storage::url($thumbnail_item->thumbnail)) }}"
-                                                        alt="thumbnail" class="inline object-cover w-20 h-20 rounded"
-                                                        for="choose">
-
-                                                    <input type="file" placeholder="Thumbnail"
-                                                        name="{{ 'thumbnails[' . $thumbnail_item['id'] . ']' }}"
-                                                        id="thumbnails" autocomplete="thumbnails"
-                                                        class="block w-full py-3 pl-5 mt-3 border-gray-300 rounded-md shadow-sm focus:ring-green-500 sm:text-sm">
-                                                </div>
                                             @empty
                                                 {{-- empty --}}
                                             @endforelse
+                                            <div id="newServicesRow"></div>
+
+                                            <button type="button"
+                                                class="inline-flex justify-center px-3 py-2 mt-3 text-xs font-medium text-gray-700 bg-gray-100 border border-transparent rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                                id="addServicesRow">
+                                                Tambahkan Keunggulan +
+                                            </button>
                                         </div>
 
-                                        <div id="newThumbnailRow"></div>
+                                        <div class="col-span-6 -mb-6">
+                                            <label for="estimation & revision"
+                                                class="block mb-3 font-medium text-gray-700 text-md">Estimasi Service &
+                                                Jumlah Revisi</label>
+                                        </div>
 
-                                        <button type="button"
-                                            class="inline-flex justify-center px-3 py-2 mt-3 text-xs font-medium text-gray-700 bg-gray-100 border border-transparent rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                                            id="addThumbnailRow">
-                                            Tambahkan Gambar +
-                                        </button>
-                                    </div>
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <select id="delivery_time" name="delivery_time" autocomplete="delivery_time"
+                                                class="block w-full px-3 py-3 pr-10 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                required>
+                                                <option>Butuh Berapa hari service kamu selesai?</option>
+                                                <option value="2"
+                                                    {{ $service['delivery_time'] == '2' ? 'selected' : '' }}>
+                                                    2
+                                                    Hari</option>
+                                                <option value="4"
+                                                    {{ $service['delivery_time'] == '4' ? 'selected' : '' }}>
+                                                    4
+                                                    Hari</option>
+                                                <option value="8"
+                                                    {{ $service['delivery_time'] == '8' ? 'selected' : '' }}>
+                                                    8
+                                                    Hari</option>
+                                                <option value="16"
+                                                    {{ $service['delivery_time'] == '16' ? 'selected' : '' }}>
+                                                    16 Hari</option>
+                                                <option value="32"
+                                                    {{ $service['delivery_time'] == '32' ? 'selected' : '' }}>
+                                                    32 Hari</option>
+                                            </select>
+                                        </div>
 
-                                    <div class="col-span-6">
-                                        <label for="advantage_users"
-                                            class="block mb-3 font-medium text-gray-700 text-md">Keunggulan
-                                            kamu</label>
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <select id="revision_limit" name="revision_limit" autocomplete="revision_limit"
+                                                class="block w-full px-3 py-3 pr-10 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                required>
+                                                <option>Maksimal Revisi service kamu</option>
+                                                <option value="3"
+                                                    {{ $service['revision_limit'] == '3' ? 'selected' : '' }}> 3
+                                                    Hari</option>
+                                                <option value="5"
+                                                    {{ $service['revision_limit'] == '5' ? 'selected' : '' }}> 5
+                                                    Hari</option>
+                                                <option value="7"
+                                                    {{ $service['revision_limit'] == '7' ? 'selected' : '' }}>
+                                                    7 Hari</option>
+                                                <option value="10"
+                                                    {{ $service['revision_limit'] == '10' ? 'selected' : '' }}>
+                                                    10 Hari</option>
+                                                <option value="12"
+                                                    {{ $service['revision_limit'] == '12' ? 'selected' : '' }}>
+                                                    12 Hari</option>
+                                            </select>
+                                        </div>
 
-
-                                        @forelse ($advantage_user as $advantage_user_item)
-                                            <input placeholder="Keunggulan Kamu" type="text"
-                                                name="{{ 'advantage-users[' . $advantage_user_item['id'] . ']' }}"
-                                                id="advantage-users" autocomplete="advantage-users"
+                                        <div class="col-span-6">
+                                            <label for="price" class="block mb-3 font-medium text-gray-700 text-md">Harga
+                                                Service
+                                                Kamu</label>
+                                            <input placeholder="Total Harga Service Kamu" type="number" name="price"
+                                                id="price" autocomplete="price"
                                                 class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                                value="{{ $advantage_user_item['advantage'] ?? '' }}" required>
+                                                value="{{ $service['price'] ?? '' }}" required>
+                                        </div>
 
-                                        @empty
-                                            {{-- empty --}}
-                                        @endforelse
+                                        <div class="col-span-6">
+                                            <label for="thumbnail"
+                                                class="block mb-3 font-medium text-gray-700 text-md">Thumbnail Service
+                                                Feeds</label>
 
-                                        <div id="newAdvantagesRow"></div>
-                                        <button type="button"
-                                            class="inline-flex justify-center px-3 py-2 mt-3 text-xs font-medium text-gray-700 bg-gray-100 border border-transparent rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                                            id="addAdvantagesRow">
-                                            Tambahkan Keunggulan +
-                                        </button>
-                                    </div>
+                                            <div class="grid grid-cols lg:grid-cols-3 md:grid-cols-2 gap-4">
+                                                @forelse ($thumbnail_service as $thumbnail_item)
+                                                    <div class="mb-2">
+                                                        <img src="{{ url(Storage::url($thumbnail_item->thumbnail)) }}"
+                                                            alt="thumbnail" class="inline object-cover w-20 h-20 rounded"
+                                                            for="choose">
 
-                                    <div class="col-span-6">
-                                        <label for="note" class="block mb-3 font-medium text-gray-700 text-md">Note
-                                            <span class="text-gray-400">(Optional)</span></label>
-                                        <input placeholder="Hal yang ingin disampaikan oleh kamu?" type="text"
-                                            name="note" id="note" autocomplete="service-name"
-                                            class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                            value="{{ $service['note'] ?? '' }}">
+                                                        <input type="file" placeholder="Thumbnail"
+                                                            name="{{ 'thumbnails[' . $thumbnail_item['id'] . ']' }}"
+                                                            id="thumbnails" autocomplete="thumbnails"
+                                                            class="block w-full py-3 pl-5 mt-3 border-gray-300 rounded-md shadow-sm focus:ring-green-500 sm:text-sm">
+                                                    </div>
+                                                @empty
+                                                    {{-- empty --}}
+                                                @endforelse
+                                            </div>
 
-                                        @if ($errors->has('note'))
-                                            <p class="text-red-500 mb-3 text-sm">{{ $errors->first('note') }}
-                                            </p>
-                                        @endif
-                                    </div>
+                                            <div id="newThumbnailRow"></div>
 
-                                    <div class="col-span-6">
-                                        <label for="taglines" class="block mb-3 font-medium text-gray-700 text-md">Tagline
-                                            <span class="text-gray-400">(Optional)</span></label>
+                                            <button type="button"
+                                                class="inline-flex justify-center px-3 py-2 mt-3 text-xs font-medium text-gray-700 bg-gray-100 border border-transparent rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                                id="addThumbnailRow">
+                                                Tambahkan Gambar +
+                                            </button>
+                                        </div>
 
-                                        @forelse ($tagline as $tagline_item)
-                                            <input placeholder="Tagline" type="text"
-                                                name="{{ 'taglines[' . $tagline_item['id'] . ']' }}" id="taglines"
-                                                autocomplete="taglines"
+                                        <div class="col-span-6">
+                                            <label for="advantage_users"
+                                                class="block mb-3 font-medium text-gray-700 text-md">Keunggulan
+                                                kamu</label>
+
+
+                                            @forelse ($advantage_user as $advantage_user_item)
+                                                <input placeholder="Keunggulan Kamu" type="text"
+                                                    name="{{ 'advantage-users[' . $advantage_user_item['id'] . ']' }}"
+                                                    id="advantage-users" autocomplete="advantage-users"
+                                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                                                    value="{{ $advantage_user_item['advantage'] ?? '' }}" required>
+
+                                            @empty
+                                                {{-- empty --}}
+                                            @endforelse
+
+                                            <div id="newAdvantagesRow"></div>
+                                            <button type="button"
+                                                class="inline-flex justify-center px-3 py-2 mt-3 text-xs font-medium text-gray-700 bg-gray-100 border border-transparent rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                                id="addAdvantagesRow">
+                                                Tambahkan Keunggulan +
+                                            </button>
+                                        </div>
+
+                                        <div class="col-span-6">
+                                            <label for="note"
+                                                class="block mb-3 font-medium text-gray-700 text-md">Note
+                                                <span class="text-gray-400">(Optional)</span></label>
+                                            <input placeholder="Hal yang ingin disampaikan oleh kamu?" type="text"
+                                                name="note" id="note" autocomplete="service-name"
                                                 class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
-                                                value="{{ $tagline_item['tagline'] ?? '' }}" required>
+                                                value="{{ $service['note'] ?? '' }}">
+
+                                            @if ($errors->has('note'))
+                                                <p class="text-red-500 mb-3 text-sm">{{ $errors->first('note') }}
+                                                </p>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-span-6">
+                                            <label for="taglines"
+                                                class="block mb-3 font-medium text-gray-700 text-md">Tagline
+                                                <span class="text-gray-400">(Optional)</span></label>
+
+                                            @forelse ($tagline as $tagline_item)
+                                                <input placeholder="Tagline" type="text"
+                                                    name="{{ 'taglines[' . $tagline_item['id'] . ']' }}" id="taglines"
+                                                    autocomplete="taglines"
+                                                    class="block w-full py-3 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                                                    value="{{ $tagline_item['tagline'] ?? '' }}" required>
 
 
-                                        @empty
-                                            {{-- empty --}}
-                                        @endforelse
+                                            @empty
+                                                {{-- empty --}}
+                                            @endforelse
 
-                                        <div id="newTaglineRow"></div>
+                                            <div id="newTaglineRow"></div>
+                                        </div>
 
                                         <button type="button"
                                             class="inline-flex justify-center px-3 py-2 mt-3 text-xs font-medium text-gray-700 bg-gray-100 border border-transparent rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
@@ -266,19 +272,21 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="px-4 py-3 text-right sm:px-6">
-                                <a href="{{ route('member.service.index') }}" type="button"
-                                    class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300">
-                                    Cancel
-                                </a>
-                                <button type="submit"
-                                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-lg shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                                    onclick="confirm('Are you sure to save this data ?')">
-                                    Save Changes
-                                </button>
-                            </div>
 
+
+                                <div class="px-4 py-3 text-right sm:px-6">
+                                    <a href="{{ route('member.dashboard.index') }}" type="button"
+                                        class="inline-flex justify-center px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-white border border-gray-600 rounded-lg shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+                                        onclick="confirm('Are you sure to cancel?, Any changes will not saved.')">
+                                        Cancel
+                                    </a>
+                                    <button type="submit"
+                                        class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-lg shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                        onclick="confirm('Are you sure to save this data ?')">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </main>
