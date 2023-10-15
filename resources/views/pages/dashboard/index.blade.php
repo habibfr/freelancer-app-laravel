@@ -110,12 +110,12 @@
                                                 <div class="relative w-10 h-10 mr-3 rounded-full md:block">
 
 
-                                                    @if (Auth::user()->detail_user->first()->photo != null)
-                                                        <img class="inline w-12 h-12 mr-3 rounded-full"
-                                                            src={{ url(Storage::url(Auth::user()->detail_user()->first()->photo)) }}
-                                                            alt="profil photo">
+                                                    @if ($item->user_buyer->detail_user->photo != null)
+                                                        <img class="object-cover w-full h-full rounded"
+                                                            src={{ url(Storage::url($item->user_buyer->detail_user->photo)) }}
+                                                            alt="" loading="lazy" />
                                                     @else
-                                                        <svg class="inline w-12 h-12 mr-3 rounded-full text-gray-300"
+                                                        <svg class="object-cover w-full h-full rounded text-gray-300"
                                                             fill="currentColor" viewBox="0 0 24 24">
                                                             <path
                                                                 d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -132,22 +132,24 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <p class="font-medium text-black">{{ $order->user_buyer->name ?? '' }}
+                                                    {{-- @dd($item) --}}
+                                                    <p class="font-medium text-black">
+                                                        {{ $item->user_buyer->name ?? '' }}
                                                     </p>
                                                     <p class="text-sm text-yellow-400">
 
-                                                        @if ($order->order_status_id == '1')
-                                                            <p class="text-sm text-yellow-400">
-                                                                {{ $order->order_status->name ?? '' }}</p>
-                                                        @elseif($order->order_status_id == '2')
-                                                            <p class="text-sm text-yellow-400">
-                                                                {{ $order->order_status->name ?? '' }}</p>
-                                                        @elseif($order->order_status_id == '3')
-                                                            <p class="text-sm text-yellow-400">
-                                                                {{ $order->order_status->name ?? '' }}</p>
+                                                        @if ($item->order_status_id == '1')
+                                                            <p class="text-sm text-green-400">
+                                                                {{ $item->order_status->name ?? '' }}</p>
+                                                        @elseif($item->order_status_id == '2')
+                                                            <p class="text-sm text-blue-400">
+                                                                {{ $item->order_status->name ?? '' }}</p>
+                                                        @elseif($item->order_status_id == '3')
+                                                            <p class="text-sm text-red-400">
+                                                                {{ $item->order_status->name ?? '' }}</p>
                                                         @else
                                                             <p class="text-sm text-yellow-400">
-                                                                {{ $order->order_status->name ?? '' }}</p>
+                                                                {{ $item->order_status->name ?? '' }}</p>
                                                         @endif
                                                     </p>
                                                 </div>
@@ -156,16 +158,26 @@
                                         <td class="w-2/4 px-1 py-5">
                                             <div class="flex items-center text-sm">
                                                 <div class="relative w-10 h-10 mr-3 rounded-full md:block">
-                                                    <img class="object-cover w-full h-full rounded"
-                                                        src={{ url('https://randomuser.me/api/portraits/men/3.jpg') }}
-                                                        alt="" loading="lazy" />
+
+                                                    {{-- @dd($item->service->thumbnail_service[0]->thumbnail) --}}
+                                                    @if ($item->service->thumbnail_service[0]->thumbnail != null)
+                                                        <img class="object-cover w-full h-full rounded"
+                                                            src={{ url(Storage::url($item->service->thumbnail_service[0]->thumbnail)) }}
+                                                            alt="thumbnail" loading="lazy" />
+                                                    @else
+                                                        <svg class="object-cover w-full h-full rounded text-gray-300"
+                                                            fill="currentColor" viewBox="0 0 24 24">
+                                                            <path
+                                                                d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                        </svg>
+                                                    @endif
                                                     <div class="absolute inset-0 rounded-full shadow-inner"
                                                         aria-hidden="true">
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <p class="font-medium text-black">
-                                                        Design WordPress E-Commerce Modules
+                                                        {{ $item->service->title ?? '' }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -180,14 +192,14 @@
                                                     stroke-linejoin="round" />
                                             </svg>
 
-                                            1 May 2021
+                                            {{ date('d/m/y', strtotime($item->expired)) ?? '' }}
                                         </td>
                                     </tr>
                                 @empty
 
                                     <tr>
                                         <td colspan="3">
-                                            <p class="text-center pt-5">yahh masih kosong</p>
+                                            <p class="text-center pt-5"Yahh masih kosong</p>
                                         </td>
                                     </tr>
                                 @endforelse

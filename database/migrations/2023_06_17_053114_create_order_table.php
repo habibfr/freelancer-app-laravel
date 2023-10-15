@@ -23,7 +23,7 @@ return new class extends Migration
 
 
             $table->longText("file")->nullable();
-            $table->longText("note")->nullablde();
+            $table->longText("note")->nullable();
             $table->date("expired")->nullable();
             // $table->integer("order_status_id")->nullable();
             $table->foreignId("order_status_id")->nullable()->index("fk_order_to_order_status");

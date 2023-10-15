@@ -3,24 +3,17 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\MyOrder\UpdateMyOrderRequest;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\Dashboard\MyOrder\UpdateMyOrderRequest;
 
 use Illuminate\Support\Facades\Storage;
-use Iluminate\Support\Facades\DB;
 
 use RealRashid\SweetAlert\Facades\Alert;
-use Symfony\Component\HttpFoundation\Response;
-
-use Illuminate\Http\Testing\File;
-// use Illuminate\Http\File;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Order;
-use App\Models\OrderStatus;
 use App\Models\Service;
-use App\Models\User;
 use App\Models\AdvantageUser;
 use App\Models\AdvantageService;
 use App\Models\ThumbnailService;
@@ -90,9 +83,10 @@ class MyOrderController extends Controller
     public function update(UpdateMyOrderRequest $request, Order $order)
     {
         $data = $request->all();
+        // dd($data);
 
         if (isset($data['file'])) {
-            $data['file'] = $request->file['file']->store(
+            $data['file'] = $request->file('file')->store(
                 'assets/order/attachment',
                 'public'
             );
@@ -104,7 +98,8 @@ class MyOrderController extends Controller
         $order->save();
 
         Alert::toast()->success("Submit order has been successfully!");
-        return redirect()->route("member.order.index");
+        return redirect()->route('member.order.index');
+        // return back();
     }
 
     /**
@@ -118,7 +113,7 @@ class MyOrderController extends Controller
     // custom
     public function accepted($id)
     {
-        $order = Order::find('$id');
+        $order = Order::find($id);
         $order->order_status_id = 2;
         $order->save();
 
@@ -127,7 +122,7 @@ class MyOrderController extends Controller
     }
     public function rejected($id)
     {
-        $order = Order::find('$id');
+        $order = Order::find($id);
         $order->order_status_id = 3;
         $order->save();
 

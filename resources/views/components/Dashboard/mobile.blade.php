@@ -10,20 +10,36 @@
         </a>
         <div class="flex items-center pt-5 pl-5 mt-10 space-x-2 border-t border-gray-100">
             <!--Author's profile photo-->
-            <img class="object-cover object-center mr-1 rounded-full w-14 h-14"
-                src="{{ url('https://randomuser.me/api/portraits/men/1.jpg') }}" alt="random user" />
+            @if (Auth::user()->detail_user()->first()->photo != null)
+                <img class="inline ml-3 h-12 w-12 rounded-full"
+                    src={{ url(Storage::url(Auth::user()->detail_user()->first()->photo)) }} alt="profil photo">
+            @else
+                <svg class="inline ml-3 h-12 w-12 rounded-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            @endif
+
             <div>
                 <!--Author name-->
                 <p class="font-semibold text-gray-900 text-md">{{ Auth::user()->name }}</p>
                 <p class="text-sm font-light text-serv-text">
-                    Website Developer
+                    {{ Auth::user()->detail_user()->role ?? '' }}
                 </p>
             </div>
         </div>
         <ul class="mt-6">
             <li class="relative px-6 py-3">
-                <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
-                    aria-hidden="true"></span>
+
+                @if (request()->is('member/dashboard') ||
+                        request()->is('member/dashboard/*') ||
+                        request()->is('member/*/dashboard') ||
+                        request()->is('member/*/dashboard/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
+
+
                 <a class="inline-flex items-center w-full text-sm font-medium text-gray-800 transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.dashboard.index') }}">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -38,18 +54,25 @@
         </ul>
         <ul>
             <li class="relative px-6 py-3">
+                @if (request()->is('member/service') ||
+                        request()->is('member/service/*') ||
+                        request()->is('member/*/service') ||
+                        request()->is('member/*/service/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.service.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
-                        <rect x="3" y="3" width="7" height="7" rx="2"
-                            stroke="#082431" stroke-width="1.5" />
-                        <rect x="3" y="14" width="7" height="7" rx="2"
-                            stroke="#082431" stroke-width="1.5" />
-                        <rect x="14" y="3" width="7" height="7" rx="2"
-                            stroke="#082431" stroke-width="1.5" />
-                        <rect x="14" y="14" width="7" height="7" rx="2"
-                            stroke="#082431" stroke-width="1.5" />
+                        <rect x="3" y="3" width="7" height="7" rx="2" stroke="#082431"
+                            stroke-width="1.5" />
+                        <rect x="3" y="14" width="7" height="7" rx="2" stroke="#082431"
+                            stroke-width="1.5" />
+                        <rect x="14" y="3" width="7" height="7" rx="2" stroke="#082431"
+                            stroke-width="1.5" />
+                        <rect x="14" y="14" width="7" height="7" rx="2" stroke="#082431"
+                            stroke-width="1.5" />
                     </svg>
                     <!-- Active Icons -->
                     <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,14 +88,21 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
+
+                @if (request()->is('member/request') ||
+                        request()->is('member/request/*') ||
+                        request()->is('member/*/request') ||
+                        request()->is('member/*/request/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.request.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2.25" y="1.25" width="19.5" height="21.5" rx="4.75"
-                            stroke="#082431" stroke-width="1.5" />
-                        <rect x="11.3" y="7" width="1.4" height="10" rx="0.7"
-                            fill="#082431" />
+                        <rect x="2.25" y="1.25" width="19.5" height="21.5" rx="4.75" stroke="#082431"
+                            stroke-width="1.5" />
+                        <rect x="11.3" y="7" width="1.4" height="10" rx="0.7" fill="#082431" />
                         <rect x="17" y="11" width="1.4" height="10" rx="0.7"
                             transform="rotate(90 17 11)" fill="#082431" />
                     </svg>
@@ -89,12 +119,19 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
+                @if (request()->is('member/order') ||
+                        request()->is('member/order/*') ||
+                        request()->is('member/*/order') ||
+                        request()->is('member/*/order/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.order.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
-                        <rect x="3.25" y="2.25" width="17.5" height="19.5" rx="4.75"
-                            stroke="#082431" stroke-width="1.5" />
+                        <rect x="3.25" y="2.25" width="17.5" height="19.5" rx="4.75" stroke="#082431"
+                            stroke-width="1.5" />
                         <line x1="7.75" y1="7.25" x2="10.25" y2="7.25" stroke="#082431"
                             stroke-width="1.5" stroke-linecap="round" />
                         <line x1="7.75" y1="11.25" x2="16.25" y2="11.25" stroke="#082431"
@@ -116,6 +153,13 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
+                @if (request()->is('member/profile') ||
+                        request()->is('member/profile/*') ||
+                        request()->is('member/*/profile') ||
+                        request()->is('member/*/profile/*'))
+                    <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg bg-serv-bg"
+                        aria-hidden="true"></span>
+                @endif
                 <a class="inline-flex items-center w-full text-sm font-light transition-colors duration-150 hover:text-gray-800"
                     href="{{ route('member.profile.index') }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

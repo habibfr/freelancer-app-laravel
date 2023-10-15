@@ -35,12 +35,12 @@ class Order extends Model
     // one to one
     public function user_buyer()
     {
-        return $this->belongsTo("App/Models/User", "users_id", "id");
+        return $this->belongsTo("App\Models\User", "buyer_id", "id");
     }
 
     public function user_freelancer()
     {
-        return $this->belongsTo("App/Models/User", "users_id", "id");
+        return $this->belongsTo("App\Models\User", "freelancer_id", "id");
     }
 
     // one to many

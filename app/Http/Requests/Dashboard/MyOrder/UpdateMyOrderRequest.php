@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Dashboard\MyOrder;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Order;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\Rule;
 
@@ -26,10 +25,10 @@ class UpdateMyOrderRequest extends FormRequest
     {
         return [
             'buyer_id' => [
-                'required', 'integer',
+                'nullable', 'integer',
             ],
             'freelancer_id' => [
-                'required', 'string',
+                'nullable', 'integer',
             ],
             'service_id' => [
                 'nullable', 'integer',
@@ -38,10 +37,10 @@ class UpdateMyOrderRequest extends FormRequest
                 'required', 'mimes:zip', 'max:1024',
             ],
             'note' => [
-                'nullable', 'date',
+                'nullable', 'string', 'max:10000'
             ],
-            'order_status_id' => [
-                'nullable', 'integer',
+            'expired' => [
+                'nullable', 'date',
             ],
         ];
     }

@@ -112,7 +112,8 @@ class LandingController extends Controller
         $service = Service::where('id', $id)->first();
         $user_buyer = Auth::user()->id;
 
-        if ($service->user_id == $user_buyer) {
+        // dd($service->user_id . $user_buyer);
+        if ($service->users_id == $user_buyer) {
             Alert::toast()->warning("Sorry, You can't book your own service");
             return back();
         }
